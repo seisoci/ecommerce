@@ -1,0 +1,1 @@
+<script src="{{asset('modules/mail/js/email.js')}}"></script>

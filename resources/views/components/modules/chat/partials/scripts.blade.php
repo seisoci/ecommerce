@@ -1,0 +1,1 @@
+<script src="{{asset('modules/chat/js/chat.js')}}"></script>

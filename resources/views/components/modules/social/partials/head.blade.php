@@ -1,0 +1,1 @@
+<link rel="stylesheet" href="{{asset('modules/social-app/css/social-app.min.css')}}" />

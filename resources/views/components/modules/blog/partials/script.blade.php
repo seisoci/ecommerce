@@ -1,0 +1,1 @@
+<script src="{{ asset('modules/blog/js/blog.js')}}"></script>
