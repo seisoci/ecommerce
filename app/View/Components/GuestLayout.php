@@ -14,7 +14,7 @@ class GuestLayout extends Component
 
     public $layout, $assets, $title;
 
-    public $isBanner, $isSidebar, $isNavbar, $isPageContainer, $isToastr, $isNestable;
+    public $isBanner, $isSidebar, $isNavbar, $isPageContainer, $isToastr, $isNestable, $isCkeditor;
 
     public $isTour, $isMasonry, $isFlatpickr, $isVectorMap, $isFslightbox, $isSweetalert, $isChoisejs, $isSelect2, $isFormWizard, $isQuillEditor, $isCircleProgress, $isNoUISlider, $isSignaturePad, $isUppy, $isSwiperSlider, $isCropperjs, $isBarRatting, $isPrism, $isBtnHover;
 
@@ -24,7 +24,7 @@ class GuestLayout extends Component
                                 $isPageContainer = true, $isTour = false, $isMasonry = false, $isFlatpickr = false, $isVectorMap = false, $isFslightbox = false,
                                 $isSweetalert = false, $isChoisejs = false, $isSelect2 = false, $isFormWizard = false, $isQuillEditor = false,
                                 $isCircleProgress = false, $isNoUISlider = false, $isSignaturePad = false, $isUppy = false, $isSwiperSlider = false,
-                                $isCropperjs = false, $isBarRatting = false, $isPrism = false, $isBtnHover = false, $isToastr = false, $isNestable = false){
+                                $isCropperjs = false, $isBarRatting = false, $isPrism = false, $isBtnHover = false, $isToastr = false, $isNestable = false, $isCkeditor = false){
         // Setting Object
         // Cache::flush('layout_setting');
         Cache::remember('layout_setting', 600, function () {
@@ -71,6 +71,7 @@ class GuestLayout extends Component
         $this->isBtnHover       = $isBtnHover;
         $this->isToastr         = $isToastr;
         $this->isNestable       = $isNestable;
+        $this->isCkeditor       = $isCkeditor;
 
         // Custom Laravel Model Render Script Props
         $this->modalJs          = $modalJs;

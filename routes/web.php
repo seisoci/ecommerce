@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth as Auth;
 use App\Http\Controllers\Backend as Backend;
+use App\Http\Controllers\Frontend as Frontend;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -53,6 +54,10 @@ Route::prefix('backend')->middleware(['auth:web'])->group(function () {
   Route::resource('items', Backend\ItemController::class);
 
 });
+
+Route::get('/', [Frontend\HomeController::class, 'index'])->name('home.index');
+Route::resource('products', Frontend\ProductController::class);
+
 
 //MenuStyle Page Routs
 Route::get('horizontal', [HomeController::class, 'horizontal'])->name('menu-style.horizontal');

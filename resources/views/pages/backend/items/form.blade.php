@@ -57,7 +57,11 @@
                   </div>
                   <div class="form-group">
                     <label>Stok Barang</label>
-                    <input type="text" name="qty" class="form-control" value="{{ $data['qty'] ?? '' }}">
+                    <input type="number" name="qty" class="form-control" value="{{ $data['qty'] ?? '' }}">
+                  </div>
+                  <div class="form-group">
+                    <label>Harga</label>
+                    <input type="number" name="price" class="form-control" value="{{ $data['price'] ?? '' }}">
                   </div>
                   <div class="form-group">
                     <label>Kategori</label>
