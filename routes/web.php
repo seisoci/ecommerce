@@ -53,10 +53,17 @@ Route::prefix('backend')->middleware(['auth:web'])->group(function () {
   Route::post('items/uploadimagecke', [Backend\ItemController::class, 'uploadimagecke'])->name('items.uploadimagecke');
   Route::resource('items', Backend\ItemController::class);
 
+
+});
+
+Route::prefix('/')->middleware(['auth:web'])->group(function () {
+  Route::resource('profiles', Frontend\ProfileController::class);
+
 });
 
 Route::get('/', [Frontend\HomeController::class, 'index'])->name('home.index');
 Route::resource('products', Frontend\ProductController::class);
+Route::resource('cart', Frontend\CartController::class);
 
 
 //MenuStyle Page Routs

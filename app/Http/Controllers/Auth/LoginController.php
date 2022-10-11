@@ -41,7 +41,10 @@ class LoginController extends Controller
     ];
 
     if (Auth::attempt($data, $remember)) {
-      return redirect(Auth::user()->roles->dashboard_url);
+      if(auth()->user()->role_id == 1){
+        return redirect(Auth::user()->roles->dashboard_url);
+      }
+      return redirect('/');
     }
 
     $this->incrementLoginAttempts($request);

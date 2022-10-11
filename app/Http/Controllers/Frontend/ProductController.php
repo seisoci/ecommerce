@@ -11,20 +11,30 @@ class ProductController extends Controller
 {
 
   public function index(Request $request){
-
+    $categoryMenu = CategoryItem::orderBy('name')->get();
     if(isset($request['category'])){
       $category = CategoryItem::whereName($request['category'])->first();
-      $data = Item::whereCategoryItemId($category['id'])->paginate(20);
+      $products = Item::whereCategoryItemId($category['id'])->paginate(20);
     }else{
-     $data = Item::paginate(20);
+      $products = Item::paginate(20);
     }
+
+    $data = [
+      'products' => $products,
+      'categoryMenu'=> $categoryMenu
+    ];
 
     return view('pages.frontend.products', compact('data'));
   }
 
   public function show($id)
   {
-    $data = Item::whereSlug($id)->firstOrFail();
+    $product = Item::whereSlug($id)->firstOrFail();
+    $categoryMenu = CategoryItem::orderBy('name')->get();
+    $data = [
+      'product' => $product,
+      'categoryMenu'=> $categoryMenu
+    ];
 
     return view('pages.frontend.product-details', compact('data'));
   }
