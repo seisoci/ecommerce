@@ -10,9 +10,6 @@ class DashboardController extends Controller
   {
     $config['title'] = "Permission";
     $config['breadcrumbs'] = [
-      ['url' => '#', 'title' => "Permission"],
-      ['url' => '#', 'title' => "Permission Data"],
-      ['url' => '#', 'title' => "Permission Data 2"],
     ];
     return view('pages.index', compact('config'));
   }

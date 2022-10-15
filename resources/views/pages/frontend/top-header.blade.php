@@ -25,7 +25,7 @@
             <div class="dropdown-menu" aria-labelledby="dropdown04">
               <a class="dropdown-item" href="{{ route('profiles.index') }}">Ubah Profile</a>
               <a class="dropdown-item" href="{{ route('cart.index') }}">Keranjang Saya</a>
-              <a class="dropdown-item" href="wishlist.html">History Pembelian</a>
+              <a class="dropdown-item" href="{{ route('history.index') }}">History Pembelian</a>
               <form method="POST" action="{{route('logout')}}">
                 @csrf
                 <li><a href="javascript:void(0)" class="dropdown-item"
