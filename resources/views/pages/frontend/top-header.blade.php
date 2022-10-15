@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
   <div class="container">
-    <a class="navbar-brand" href="index.html">Vegefoods</a>
+    <a class="navbar-brand" href="{{ route('home.index') }}">Vegefoods</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav"
             aria-expanded="false" aria-label="Toggle navigation">
       <span class="oi oi-menu"></span> Menu
@@ -24,12 +24,20 @@
                aria-expanded="false">Akun Saya</a>
             <div class="dropdown-menu" aria-labelledby="dropdown04">
               <a class="dropdown-item" href="{{ route('profiles.index') }}">Ubah Profile</a>
-              <a class="dropdown-item" href="wishlist.html">Keranjang Saya</a>
+              <a class="dropdown-item" href="{{ route('cart.index') }}">Keranjang Saya</a>
               <a class="dropdown-item" href="wishlist.html">History Pembelian</a>
+              <form method="POST" action="{{route('logout')}}">
+                @csrf
+                <li><a href="javascript:void(0)" class="dropdown-item"
+                       onclick="event.preventDefault(); this.closest('form').submit();">
+                    Keluar
+                  </a></li>
+              </form>
             </div>
           </li>
         @else
           <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Masuk</a></li>
+          <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Registrasi</a></li>
         @endif
       </ul>
     </div>

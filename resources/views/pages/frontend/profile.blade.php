@@ -24,7 +24,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="firstname">Nama Lengkap</label>
-                  <input type="text" name="name" class="form-control" value="{{ $data['profile']['profile']['name'] ?? '' }}">
+                  <input type="text" name="name" class="form-control" value="{{ $data['profile']['name'] ?? '' }}">
                 </div>
               </div>
               <div class="col-md-6">

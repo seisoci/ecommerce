@@ -12,13 +12,11 @@ return new class extends Migration {
    */
   public function up()
   {
-    Schema::create('profiles', function (Blueprint $table) {
+    Schema::create('purchase_orders', function (Blueprint $table) {
       $table->id();
       $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-      $table->string('city')->nullable();
-      $table->string('address')->nullable();
-      $table->string('phone')->nullable();
-      $table->string('postcode')->nullable();
+      $table->decimal('grand_total', 15, 2)->default(0);
+      $table->enum('status', ['cancel', 'pending','success'])->default('pending');
       $table->timestamps();
     });
   }
@@ -30,6 +28,6 @@ return new class extends Migration {
    */
   public function down()
   {
-    Schema::dropIfExists('profiles');
+    Schema::dropIfExists('purchase_orders');
   }
 };

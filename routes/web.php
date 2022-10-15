@@ -62,8 +62,14 @@ Route::prefix('/')->middleware(['auth:web'])->group(function () {
 });
 
 Route::get('/', [Frontend\HomeController::class, 'index'])->name('home.index');
+Route::post('register', [Frontend\HomeController::class, 'store'])->name('home.register');
+Route::get('register', [Frontend\HomeController::class, 'register'])->name('home.register');
 Route::resource('products', Frontend\ProductController::class);
 Route::resource('cart', Frontend\CartController::class);
+Route::resource('history', Frontend\HistoryController::class);
+Route::get('cart/{id}/add-item', [Frontend\CartController::class, 'addItem'])->name('cart.add-item');
+Route::get('cart/{id}/update-item', [Frontend\CartController::class, 'updateItem'])->name('cart.update-item');
+Route::get('cart/{id}/delete-item', [Frontend\CartController::class, 'deleteItem'])->name('cart.delete-item');
 
 
 //MenuStyle Page Routs

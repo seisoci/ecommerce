@@ -39,11 +39,13 @@ class ProfileController extends Controller
     DB::beginTransaction();
     try {
       $data = User::with('profile')->find(auth()->id());
+      $data->update([
+        'name' => $request['name'],
+      ]);
       $request->except('_method');
       $data->profile()->updateOrCreate(
         ['user_id' => $data->id],
         [
-          'name' => $request['name'],
           'city' => $request['city'],
           'address' => $request['address'],
           'phone' => $request['phone'],

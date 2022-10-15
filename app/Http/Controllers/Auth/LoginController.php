@@ -54,7 +54,11 @@ class LoginController extends Controller
 
   public function logout(Request $request)
   {
-    $redirect = redirect(RouteServiceProvider::LOGIN);
+    if(auth()->user()->hasRole('super-admin')){
+      $redirect = redirect(RouteServiceProvider::LOGIN);
+    }else{
+      $redirect = redirect()->to('/');
+    }
     $this->guard()->logout();
     $request->session()->invalidate();
     $request->session()->regenerate();
