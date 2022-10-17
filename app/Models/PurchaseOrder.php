@@ -15,8 +15,19 @@ class PurchaseOrder extends Model
     'status',
   ];
 
+
+  public function user()
+  {
+    return $this->belongsTo(User::class);
+  }
+
   public function purchase_order_item()
   {
     return $this->hasMany(PurchaseOrderItem::class);
+  }
+
+  protected function serializeDate(\DateTimeInterface $date)
+  {
+    return $date->format('Y-m-d H:i:s');
   }
 }

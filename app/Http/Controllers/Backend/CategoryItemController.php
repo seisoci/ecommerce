@@ -44,7 +44,6 @@ class CategoryItemController extends Controller
                                   data-bs-id="' . $row->id . '"
                                   data-bs-name="' . $row->name . '"
                                   class="dropdown-item">Ubah</a></li>
-
                                 <li><a class="dropdown-item btn-delete" href="#" data-id ="' . $row->id . '" >Hapus</a></li>
                             </ul>
                           </div>';

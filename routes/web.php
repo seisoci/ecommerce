@@ -53,6 +53,8 @@ Route::prefix('backend')->middleware(['auth:web'])->group(function () {
   Route::post('items/uploadimagecke', [Backend\ItemController::class, 'uploadimagecke'])->name('items.uploadimagecke');
   Route::resource('items', Backend\ItemController::class);
 
+  /* History Route */
+  Route::resource('history', Backend\HistoryController::class)->names('backend.history');
 
 });
 
