@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Jualan</title>
+  <title>{{ config('app.name') }}</title>
   <meta charset="utf-8">
   @include('pages.frontend.head-css')
 </head>
