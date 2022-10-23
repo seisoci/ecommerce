@@ -63,7 +63,7 @@
           <a class="py-0 nav-link d-flex align-items-center" href="#" id="navbarDropdown" role="button"
              data-bs-toggle="dropdown" aria-expanded="false">
             <div class="btn-icon btn-sm rounded-pill border border-primary">
-              <img style="width: 100%; height: 100%" src="{{ auth()->user()->image != NULL ? asset("storage/images/thumbnail/".auth()->user()->image) : asset('images/no-content.svg') }}" alt="User-Profile"
+              <img style="width: 100%; height: 100%" src="{{ isset(auth()->user()->image) ? asset("storage/images/thumbnail/".auth()->user()->image) : asset('images/no-content.svg') }}" alt="User-Profile"
                    class="img-fluid rounded-pill" loading="lazy">
             </div>
           </a>
