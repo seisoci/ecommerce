@@ -102,8 +102,7 @@
                       <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td class="image-prod">
-                          <div class="img"
-                               style="background-image:url('{{ asset('storage/images/thumbnail') }}/{{ $item['item']['poster'] ?? '' }}');"></div>
+                          <img src="{{ asset('storage/images/thumbnail') }}/{{ $item['item']['poster'] ?? '' }}" height="200px" width="200px"></img>
                         </td>
                         <td>{{ $item['item']['title'] ?? '' }}</td>
                         <td class="text-end">{{ number_format($item['item']['price'] ?? 0,0,'.',',') }}</td>
