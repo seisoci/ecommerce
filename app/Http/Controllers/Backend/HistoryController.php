@@ -2,21 +2,19 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Helpers\FileUpload;
 use App\Http\Controllers\Controller;
-use App\Models\Item;
 use App\Models\PurchaseOrder;
 use App\Traits\ResponseStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
 
 class HistoryController extends Controller
 {
   use ResponseStatus;
+
   public function index(Request $request)
   {
     $config['title'] = "History Pembelian Pelanggan";
@@ -24,7 +22,7 @@ class HistoryController extends Controller
       ['url' => '#', 'title' => "History Pembelian Pelanggan"],
     ];
     if ($request->ajax()) {
-      $data = PurchaseOrder::with('user')->get();
+      $data = PurchaseOrder::with('user');
       return DataTables::of($data)
         ->addIndexColumn()
         ->addColumn('action', function ($row) {

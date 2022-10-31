@@ -112,6 +112,8 @@
 <!-- FontAwesome 6 -->
 <link rel="stylesheet" href="{{asset('vendor/fontawesome-pro/css/all.min.css')}}">
 
+<link rel="stylesheet" href="{{asset('vendor/datatables/dataTables.min.css')}}">
+<link rel="stylesheet" href="{{asset('vendor/datatables/buttons.dataTables.min.css')}}">
 
  @stack('head')
  <!-- Google Font -->

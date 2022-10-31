@@ -88,7 +88,7 @@
             let api = this.api();
             $(row).find('.btn-delete').click(function () {
               let pk = $(this).data('id'),
-                url = `{{ route("users.index") }}/` + pk;
+                url = `{{ route("items.index") }}/` + pk;
               Swal.fire({
                 title: "Anda Yakin ?",
                 text: "Data tidak dapat dikembalikan setelah di hapus!",

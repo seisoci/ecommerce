@@ -56,6 +56,9 @@ Route::prefix('backend')->middleware(['auth:web'])->group(function () {
   /* History Route */
   Route::resource('history', Backend\HistoryController::class)->names('backend.history');
 
+  /* Laporan History Route */
+  Route::resource('laporan-history', Backend\LaporanHistoryController::class);
+
 });
 
 Route::prefix('/')->middleware(['auth:web'])->group(function () {

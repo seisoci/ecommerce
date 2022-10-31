@@ -159,6 +159,15 @@
   <script src="{{asset('vendor/ckeditor/ckeditor.js')}}"></script>
 @endif
 
-
+<!-- Data Table Script -->
+<script type="text/javascript" src="{{ asset('vendor/datatables/dataTables.buttons.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/datatables/dataTables.buttons.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/datatables/buttons.bootstrap5.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/datatables/jszip.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/datatables/pdfmake.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/datatables/vfs_fonts.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/datatables/buttons.html5.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('vendor/datatables/buttons.print.min.js')}}"></script>
+<script src="{{ asset('vendor/datatables/buttons.colVis.min.js')}}"></script>
 
 
