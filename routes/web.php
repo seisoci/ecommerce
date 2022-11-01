@@ -58,6 +58,7 @@ Route::prefix('backend')->middleware(['auth:web'])->group(function () {
 
   /* Laporan History Route */
   Route::resource('laporan-history', Backend\LaporanHistoryController::class);
+  Route::resource('laporan-history-detail', Backend\LaporanHistoryDetailController::class);
 
 });
 
