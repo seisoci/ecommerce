@@ -79,7 +79,7 @@
                 <div class="form-group">
                   <label for="firstname">Nama Lengkap</label>
                   <input type="text" name="name" class="form-control"
-                         value="{{ $data['profile']['profile']['name'] ?? '' }}" readonly>
+                         value="{{ $data['profile']['name'] ?? '' }}" readonly>
                 </div>
               </div>
               <div class="col-md-6">
