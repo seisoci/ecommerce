@@ -76,7 +76,6 @@ class ItemController extends Controller
       'title' => 'required|string',
       'poster' => 'image|mimes:jpg,png,jpeg|max:5000',
       'published' => 'in:0,1',
-      'product_images.*' => 'image|mimes:jpg,png,jpeg',
     ]);
     if ($validator->passes()) {
       DB::beginTransaction();
@@ -130,7 +129,6 @@ class ItemController extends Controller
       'title' => 'required|string',
       'poster' => 'image|mimes:jpg,png,jpeg|max:5000',
       'published' => 'in:0,1',
-      'product_images.*' => 'image|mimes:jpg,png,jpeg',
     ]);
     if ($validator->passes()) {
       DB::beginTransaction();
