@@ -190,7 +190,7 @@ a.bg-soft-info:hover, a.bg-soft-info:focus, button.bg-soft-info:hover, button.bg
   border-color: var(--bs-primary-shade-20);
 }
 .btn.btn-outline-primary:hover {
-  color: var(--bs-white);
+  color: black;
   background-color: var(--bs-primary);
   border-color: var(--bs-primary);
 }

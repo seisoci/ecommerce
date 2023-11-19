@@ -13,4 +13,14 @@ class DashboardController extends Controller
     ];
     return view('pages.index', compact('config'));
   }
+
+  public function search(\Request $request)
+  {
+    $config['title'] = "Permission";
+    $config['breadcrumbs'] = [
+    ];
+
+
+    return view('pages.search', compact('config'));
+  }
 }

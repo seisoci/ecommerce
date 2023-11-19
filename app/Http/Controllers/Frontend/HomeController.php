@@ -77,4 +77,17 @@ class HomeController extends Controller
       return Redirect::back()->with(['errors' => $validator->errors()])->withInput();
     }
   }
+
+  public function search(Request $request)
+  {
+    $products = Item::where('title', 'LIKE', '%'.$request['q'].'%')->with('category')->where('published', 1)->oldest()->get();
+    $categoryMenu = CategoryItem::orderBy('name')->get();
+    $data = [
+      'products' => $products,
+      'categoryMenu'=> $categoryMenu
+    ];
+
+    return view('pages.frontend.search', compact('data'));
+  }
+
 }

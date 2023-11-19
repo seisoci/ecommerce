@@ -29,7 +29,7 @@ class ProductController extends Controller
 
   public function show($id)
   {
-    $product = Item::whereSlug($id)->firstOrFail();
+    $product = Item::with('review.user', 'product_images')->withAvg('review', 'score')->withCount('review')->whereSlug($id)->firstOrFail();
     $categoryMenu = CategoryItem::orderBy('name')->get();
     $data = [
       'product' => $product,

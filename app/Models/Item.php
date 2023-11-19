@@ -24,9 +24,19 @@ class Item extends Model
     'created_at',
   ];
 
+  public function product_images()
+  {
+    return $this->hasMany(ProductImage::class)->orderBy('sort_number', 'asc');
+  }
+
   public function category()
   {
     return $this->belongsTo(CategoryItem::class, 'category_item_id');
+  }
+
+  public function review()
+  {
+    return $this->hasMany(Review::class);
   }
 
   public function getSlugOptions(): SlugOptions

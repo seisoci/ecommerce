@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\CategoryItem;
+use App\Models\Item;
 use App\Models\PurchaseOrder;
 use App\Traits\ResponseStatus;
 
@@ -14,7 +15,6 @@ class HistoryController extends Controller
 
   public function index()
   {
-
     $purchaseOrder = PurchaseOrder::with('purchase_order_item.item')
       ->where('user_id', auth()->id())
       ->latest()
@@ -32,7 +32,18 @@ class HistoryController extends Controller
       'categoryMenu' => $categoryMenu,
       'cart' => $cart
     ];
-
+//dd($purchaseOrder->toArray());
     return view('pages.frontend.history', compact('config', 'data'));
+  }
+
+  public function show($id){
+    $product = Item::find($id);
+    $categoryMenu = CategoryItem::orderBy('name')->get();
+    $data = [
+      'product' => $product,
+      'categoryMenu'=> $categoryMenu
+    ];
+
+    return view('pages.frontend.product-details-review', compact('data'));
   }
 }

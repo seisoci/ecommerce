@@ -8,6 +8,7 @@ use App\Models\CategoryItem;
 use App\Models\Item;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseOrderItem;
+use App\Models\Review;
 use App\Models\User;
 use App\Traits\ResponseStatus;
 use Illuminate\Http\Request;
@@ -90,7 +91,6 @@ class CartController extends Controller
     }
     $cart->save();
     return response()->json('success');
-
   }
 
   public function updateItem($id, Request $request)
@@ -112,5 +112,28 @@ class CartController extends Controller
       return response()->json('failed');
     }
   }
+
+  public function review(Request $request)
+  {
+
+    DB::beginTransaction();
+    try {
+      Review::create([
+        'user_id' => auth()->id(),
+        'item_id' => $request->item_id,
+        'description' => $request->description,
+        'score' => $request->score ?? 0,
+      ]);
+      DB::commit();
+      $response = response()->json($this->responseStore(true, NULL, route('history.index')));
+
+    } catch (\Throwable $throw) {
+      Log::error($throw);
+      DB::rollBack();
+      $response = response()->json(['error' => $throw->getMessage()]);
+    }
+    return $response;
+  }
+
 
 }

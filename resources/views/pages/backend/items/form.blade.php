@@ -6,6 +6,28 @@
       @csrf
       <div class="row">
         <div class="col-12">
+          @if(isset($data['product_images']) && count($data['product_images']) > 0)
+            <div class="card">
+              <div class="card-body">
+                <div id="gridImage">
+                  @foreach($data['product_images'] as $item)
+                    <div data-id="{{ $item['id'] ?? '' }}" class="grid-square">
+                      <img
+                        style="height: 100%; width: 100%"
+                        src="{{ $item['url'] != NULL ? asset("/storage/images/thumbnail/".$item['url']) : asset('assets/img/svgs/no-content.svg') }}">
+                      <button class="btn btn-danger btnDeletePhoto"
+                              type="button"
+                              data-bs-id="{{ $item['id'] }}"
+                              data-bs-toggle="modal"
+                              data-bs-target="#modalDelete">
+                        <i class="fa fa-trash"></i>
+                      </button>
+                    </div>
+                  @endforeach
+                </div>
+              </div>
+            </div>
+          @endif
           <div class="card">
             <div class="card-header justify-content-between">
               <div class="header-title">
@@ -67,16 +89,18 @@
                     <label>Kategori</label>
                     <select id="select2CategoryItem" class="form-control" name="category_item_id">
                       @if(isset($data['category_item_id']))
-                        <option value="{{ $data['category_item_id'] ?? '' }}">{{ $data['category']['name'] ?? '' }}</option>
+                        <option
+                          value="{{ $data['category_item_id'] ?? '' }}">{{ $data['category']['name'] ?? '' }}</option>
                       @endif
                     </select>
                   </div>
                   <div class="form-group">
                     <label class="mx-0 text-bold d-block">Gambar Cover</label>
-                    <img src="{{ isset($data['poster']) ? asset("storage/images/original/{$data['poster']}")   : asset('images/no-content.svg') }}"
-                         style="object-fit: cover; border: 1px solid #d9d9d9" class="mb-2 border-2 mx-auto"
-                         height="200px"
-                         width="100%" alt="">
+                    <img
+                      src="{{ isset($data['poster']) ? asset("storage/images/original/{$data['poster']}")   : asset('images/no-content.svg') }}"
+                      style="object-fit: cover; border: 1px solid #d9d9d9" class="mb-2 border-2 mx-auto"
+                      height="200px"
+                      width="100%" alt="">
                     <input type="file" class="image d-block" name="poster" accept=".jpg, .jpeg, .png">
                     <p class="text-muted ms-75 mt-50"><small>Allowed JPG, JPEG or PNG. Max
                         size of
@@ -86,44 +110,67 @@
                     <label for="">Status</label>
                     <div class="custom-controls-stacked">
                       <label class="custom-control custom-radio">
-                        <input type="radio" class="custom-control-input" name="published" value="0" {{ isset($data['published']) && $data['published'] == 0 ? 'checked' : ''  }}>
+                        <input type="radio" class="custom-control-input" name="published"
+                               value="0" {{ isset($data['published']) && $data['published'] == 0 ? 'checked' : ''  }}>
                         <span class="custom-control-label">Draft</span>
                       </label>
                       <label class="custom-control custom-radio">
-                        <input type="radio" class="custom-control-input" name="published" value="1" {{ isset($data['published']) && $data['published'] == 1 ? 'checked' : ''  }}>
+                        <input type="radio" class="custom-control-input" name="published"
+                               value="1" {{ isset($data['published']) && $data['published'] == 1 ? 'checked' : ''  }}>
                         <span class="custom-control-label">Publish</span>
                       </label>
                     </div>
                   </div>
                 </div>
               </div>
-           {{--   <div class="row">
-                <div class="col-md-3 items" id="items_1">
-                  <div class="form-group">
-                    <label class="mx-0 text-bold d-block">Isi Gambar</label>
+              <div class="col-md-12">
+                <div class="row">
+                  <div id="items_1" class="col-md-3 form-group items">
+                    <label class="mx-0 text-bold d-block">Gambar</label>
                     <img src="{{ asset('images/no-content.svg') }}"
                          style="
                      background-size: cover;
                      background-position: center center;
                      border: 1px solid #d9d9d9"
                          class="mb-2 border-2 mx-auto"
-                         height="150px"
-                         width="225px">
-                    <input type="file" class="image d-block" name="post_items[]" accept=".jpg, .jpeg, .png">
+                         height="100px"
+                         width="200px">
+                    <input type="file" class="image d-block" name="product_images[]" accept=".jpg, .jpeg, .png">
                     <p class="text-muted ms-75 mt-50"><small>Allowed JPG, JPEG or PNG. Max
                         size of
-                        5MB</small></p>
+                        2000kB</small></p>
                   </div>
                 </div>
-                <div class="d-flex justify-content-start pt-2">
+                <div class="d-flex justify-content-end">
                   <button type="button" id="btnAddPhoto" class="btn btn-sm btn-success">Tambah Gambar</button>
                 </div>
-              </div>--}}
+              </div>
             </div>
           </div>
         </div>
       </div>
     </form>
+  </div>
+  {{--  Modal--}}
+  <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalDeleteLabel">Hapus</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        @method('DELETE')
+        <div class="modal-body">
+          <a href="/delete-image/" class="urlDelete" type="hidden"></a>
+          Apa anda yakin ingin menghapus data ini?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+          <button id="formDelete" type="button" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </div>
   </div>
   @push('head')
     <style>
@@ -134,7 +181,7 @@
       .grid-square {
         position: relative;
         width: 150px;
-        height: 150px;
+        height: 100px;
         display: inline-block;
         background-color: #fff;
         border: solid 1px rgb(0, 0, 0, 0.2);
@@ -151,6 +198,19 @@
   @push('scripts')
     <script>
       $(document).ready(function () {
+        let modalDelete = document.getElementById('modalDelete');
+        const bsDelete = new bootstrap.Modal(modalDelete);
+
+        modalDelete.addEventListener('show.bs.modal', function (event) {
+          let button = event.relatedTarget;
+          let id = button.getAttribute('data-bs-id');
+          this.querySelector('.urlDelete').setAttribute('href', '/backend/delete-image/' + id);
+        });
+
+        modalDelete.addEventListener('hidden.bs.modal', function (event) {
+          this.querySelector('.urlDelete').setAttribute('href', '');
+        });
+
         initImage();
         ClassicEditor.create(document.querySelector("#editor"), {
           ckfinder: {
@@ -159,6 +219,32 @@
           toolbar: {
             shouldNotGroupWhenFull: true
           }
+        });
+
+        $('#btnAddPhoto').on('click', function () {
+          let totalItems = $(".items").length;
+          if (totalItems < 5) {
+            let lastid = $(".items:last").attr("id");
+            let split_id = lastid.split("_");
+            let nextindex = Number(split_id[1]) + 1;
+            $(".items:last").after($(`<div class='col-md-3 form-group items' id="items_${nextindex}">`).append(
+              $(`<label class="mx-0 text-bold d-block">Gambar</label>`),
+              $(`<img src="{{ asset('images/no-content.svg') }}" style="background-size: cover; background-position: center center; border: 1px solid #d9d9d9" class="mb-2 border-2 mx-auto" height="100px" width="200px">`),
+              $(`<input type="file" class="image d-block" name="product_images[]" accept=".jpg, .jpeg, .png">`),
+              $(`<p class="text-muted ms-75 mt-50 mb-0"><small>Allowed JPG, JPEG or PNG. Max size of 2000kB</small></p>`),
+              $(`<button type="button" class="btn btn-sm btn-danger btnDelete">Hapus</button>`),
+            ));
+            initImage();
+          } else {
+            toastr.error('Maksimal Upload 5 Gambar', 'Failed !');
+          }
+        });
+
+        $('div').on('click', '.btnDelete', function () {
+          let id = $(this).parent().attr("id");
+          let split_id = id.split("_");
+          let deleteindex = split_id[1];
+          $("#items_" + deleteindex).remove();
         });
 
         $("#formStore").submit(function (e) {
@@ -226,33 +312,6 @@
           },
         });
 
-        $('#btnAddPhoto').on('click', function () {
-          let totalItems = $(".items").length;
-          if (totalItems < 100) {
-            let lastid = $(".items:last").attr("id");
-            let split_id = lastid.split("_");
-            let nextindex = Number(split_id[1]) + 1;
-            $(".items:last").after($(`<div class="col-md-3 items" id="items_${nextindex}">`).append(
-              $(`<div class='form-group'>`).append(
-                $(`<label class="mx-0 text-bold d-block">Gambar</label>`),
-                $(`<img src="{{ asset('assets/img/svgs/no-content.svg') }}" style="background-size: cover; background-position: center center; border: 1px solid #d9d9d9" class="mb-2 border-2 mx-auto" height="150" width="150px">`),
-                $(`<input type="file" class="image d-block" name="post_items[]" accept=".jpg, .jpeg, .png">`),
-                $(`<p class="text-muted ms-75 mt-50 mb-0"><small>Allowed JPG, JPEG or PNG. Max size of 5MB</small></p>`),
-                $(`<button type="button" class="btn btn-sm btn-danger btnDelete">Hapus</button>`),
-              )
-            ));
-            initImage();
-          } else {
-            toastr.error('Maksimal Upload 100 Gambar', 'Failed !');
-          }
-        });
-        $('div').on('click', '.btnDelete', function () {
-          let id = $(this).parent().parent().attr("id");
-          let split_id = id.split("_");
-          let deleteindex = split_id[1];
-          $("#items_" + deleteindex).remove();
-        });
-
         function initImage() {
           $(".image").change(function () {
             let thumb = $(this).parent().find('img');
@@ -278,6 +337,39 @@
           }
         });
 
+        $("#formDelete").click(function (e) {
+          e.preventDefault();
+          let form = $(this);
+          let url = modalDelete.querySelector('.urlDelete').getAttribute('href');
+          let btnHtml = form.html();
+          let spinner = $("<i class='spinner-border spinner-border-sm font-size-16 align-middle me-2'></i>");
+          $.ajax({
+            beforeSend: function () {
+              form.text(' Loading. . .').prepend(spinner).prop("disabled", "disabled");
+            },
+            type: 'DELETE',
+            url: url,
+            dataType: 'json',
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            success: function (response) {
+              toastr.success(response.message, 'Success !');
+              form.text('Submit').html(btnHtml).removeAttr('disabled');
+              bsDelete.hide();
+              if (response.status === "success") {
+                setTimeout(() => {
+                  location.reload();
+                }, 2000);
+              } else {
+                toastr.error((response.message ? response.message : "Gagal menghapus data"), 'Failed !');
+              }
+            },
+            error: function (response) {
+              toastr.error(response.responseJSON.message, 'Failed !');
+              form.text('Submit').html(btnHtml).removeAttr('disabled');
+              bsDelete.hide();
+            }
+          });
+        });
 
         $('input[name="publish_at"]').flatpickr({
           enableTime: true,

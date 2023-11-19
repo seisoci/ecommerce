@@ -41,9 +41,20 @@
                     </td>
                     <td class="quantity">
                       <div class="input-group mb-3">
+                      <span class="input-group-btn mr-2">
+                        <button type="button" class="quantity-left-minus btn" data-id="{{ $loop->iteration }}" data-type="minus" data-field="">
+                         <i class="ion-ios-remove"></i>
+                        </button>
+                      </span>
                         <input type="text" name="items[{{ $loop->iteration }}][qty]" class="qty form-control"
                                value="{{ $item['qty'] ?? 1 }}">
+                        <span class="input-group-btn ml-2">
+                          <button type="button" class="quantity-right-plus btn" data-id="{{ $loop->iteration }}" data-type="plus" data-field="">
+                             <i class="ion-ios-add"></i>
+                         </button>
+                      </span>
                       </div>
+
                     </td>
                     <td class="total">
                       <div class="input-group mb-3">
@@ -165,6 +176,24 @@
             });
           }
         });
+
+        $('.quantity-right-plus').click(function (e) {
+          e.preventDefault();
+          let idx = $(this).data('id');
+          let qty = parseInt(AutoNumeric.getAutoNumericElement(`input[name="items[${idx}][qty]"]`).getNumber()) || 0;
+          AutoNumeric.getAutoNumericElement(`input[name="items[${idx}][qty]"]`).set(qty+1)
+          initCalculateData(idx);
+        });
+
+        $('.quantity-left-minus').click(function (e) {
+          e.preventDefault();
+          let idx = $(this).data('id');
+          let qty = parseInt(AutoNumeric.getAutoNumericElement(`input[name="items[${idx}][qty]"]`).getNumber()) || 0;
+          if(qty > 1){
+            AutoNumeric.getAutoNumericElement(`input[name="items[${idx}][qty]"]`).set(qty-1)
+          }
+          initCalculateData(idx);
+        });
       }
 
       function initCalculate() {
@@ -190,7 +219,7 @@
               data: {qty_item: qty},
               dataType: 'json',
               type: "GET",
-              url: `{{ route('cart.index') }}/${item_id}/add-item`,
+              url: `{{ route('cart.index') }}/${item_id}/update-item`,
               success: function (response) {
               },
             });
@@ -203,6 +232,39 @@
 
           AutoNumeric.getAutoNumericElement(`.total_purchase`).set(totalPembelian);
         });
+      }
+
+      function initCalculateData(idx){
+        let itemTotalHarga = 0;
+        let totalPembelian = 0;
+
+        if (idx) {
+          let item_id = $(`input[name="items[${idx}][item_id]"]`).val();
+          let qty = parseInt(AutoNumeric.getAutoNumericElement(`input[name="items[${idx}][qty]"]`).getNumber()) || 0;
+          let harga = parseFloat(AutoNumeric.getAutoNumericElement(`input[name="items[${idx}][price]"]`).getNumber()) || 0;
+          itemTotalHarga = harga * qty;
+          AutoNumeric.getAutoNumericElement(`input[name="items[${idx}][total_price]"]`).set(itemTotalHarga);
+
+          $.ajax({
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            cache: false,
+            data: {qty_item: qty},
+            dataType: 'json',
+            type: "GET",
+            url: `{{ route('cart.index') }}/${item_id}/update-item`,
+            success: function (response) {
+            },
+          });
+        }
+
+        document.querySelectorAll('.total_price').forEach(function (el) {
+          let nameEl = el.getAttribute('name');
+          totalPembelian += parseInt(AutoNumeric.getAutoNumericElement(`input[name="${nameEl}`).getNumber()) || 0;
+        });
+
+        AutoNumeric.getAutoNumericElement(`.total_purchase`).set(totalPembelian);
       }
 
       function initStart() {
@@ -228,7 +290,7 @@
           processData: false,
           contentType: false,
           type: "GET",
-          url: `{{ route('cart.index') }}/${id}/update-item`,
+          url: `{{ route('cart.index') }}/${id}/delete-item`,
           success: function (response) {
             if (response == 'success') {
               $selector.parent().parent().remove();
@@ -237,6 +299,7 @@
           },
         });
       });
+
 
     });
   </script>

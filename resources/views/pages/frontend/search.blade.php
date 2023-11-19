@@ -1,11 +1,17 @@
-  @extends('pages.frontend.template')
+@extends('pages.frontend.template')
 @section('content')
   <section class="ftco-section">
     <div class="container">
-      <h4 class="text-center mb-4">Produk</h4>
+      <div class="row justify-content-center mb-3 pb-3">
+        <div class="col-md-12 heading-section text-center ftco-animate">
+          <h2 class="mb-4">Pencarian</h2>
+        </div>
+      </div>
+    </div>
+    <div class="container">
       <div class="row">
         @foreach($data['products'] ?? [] as $item)
-          <div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">
+          <div class="col-md-6 col-lg-3 ftco-animate">
             <div class="product">
               <a href="{{ route('products.show', $item['slug']) }}" class="img-prod">
                 <img class="img-fluid" src="{{ asset('storage/images/thumbnail') }}/{{ $item['poster'] ?? '' }}"
@@ -23,13 +29,6 @@
             </div>
           </div>
         @endforeach
-      </div>
-      <div class="row mt-5">
-        <div class="col text-center">
-          <div class="block-27">
-            {{ $data['products']->links() }}
-          </div>
-        </div>
       </div>
     </div>
   </section>

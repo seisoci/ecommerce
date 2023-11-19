@@ -51,6 +51,7 @@ Route::prefix('backend')->middleware(['auth:web'])->group(function () {
 
   /* Product Route */
   Route::post('items/uploadimagecke', [Backend\ItemController::class, 'uploadimagecke'])->name('items.uploadimagecke');
+  Route::delete('delete-image/{id}', [Backend\ItemController::class, 'deleteProduct']);
   Route::resource('items', Backend\ItemController::class);
 
   /* History Route */
@@ -68,6 +69,7 @@ Route::prefix('/')->middleware(['auth:web'])->group(function () {
 });
 
 Route::get('/', [Frontend\HomeController::class, 'index'])->name('home.index');
+Route::get('search', [Frontend\HomeController::class, 'search'])->name('search');
 Route::post('register', [Frontend\HomeController::class, 'store'])->name('home.register');
 Route::get('register', [Frontend\HomeController::class, 'register'])->name('home.register');
 Route::resource('products', Frontend\ProductController::class);
@@ -76,6 +78,8 @@ Route::resource('history', Frontend\HistoryController::class);
 Route::get('cart/{id}/add-item', [Frontend\CartController::class, 'addItem'])->name('cart.add-item');
 Route::get('cart/{id}/update-item', [Frontend\CartController::class, 'updateItem'])->name('cart.update-item');
 Route::get('cart/{id}/delete-item', [Frontend\CartController::class, 'deleteItem'])->name('cart.delete-item');
+Route::post('cart/review', [Frontend\CartController::class, 'review'])->name('review');
+Route::get('cart/review', [Frontend\CartController::class, 'review'])->name('review.data');
 
 
 //MenuStyle Page Routs

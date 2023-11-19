@@ -8,12 +8,20 @@
 
     <div class="collapse navbar-collapse" id="ftco-nav">
       <ul class="navbar-nav ml-auto">
+        <li class="nav-item pt-2">
+          <form action="{{ route('search') }}" method="GET">
+          <div class="d-flex">
+            <input name="q" type="text" class="form-control form-control-sm rounded" placeholder="Cari Barang">
+            <button class="btn-secondary px-4" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+          </div>
+          </form>
+        </li>
         <li class="nav-item active"><a href="{{ route('home.index') }}" class="nav-link">Beranda</a></li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true"
              aria-expanded="false">Kategori</a>
           <div class="dropdown-menu" aria-labelledby="dropdown04">
-            @foreach($data['categoryMenu'] ?? [] as $item)
+          @foreach($data['categoryMenu'] ?? [] as $item)
               <a class="dropdown-item" href="{{ route('products.index', ['category' => $item['name'] ?? '']) }}">{{ $item['name'] ?? [] }}</a>
             @endforeach
           </div>

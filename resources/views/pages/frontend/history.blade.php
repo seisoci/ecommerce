@@ -19,7 +19,10 @@
               <td>{{ $loop->iteration }}</td>
               <td>
                 @foreach($item['purchase_order_item'] ?? [] as $itemChild)
-                  <p>{{ $itemChild['item']['title'] ?? '' }} - {{ number_format($itemChild['price'] ?? 0, 0,'.',',') ?? '' }} * {{ $itemChild['qty'] ?? '' }}</p>
+                  <div class="d-flex">
+                    <img class="mr-3" style="border-radius: 30px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);" height="30px" width="30px" src="{{ asset('storage/images/thumbnail') }}/{{ $itemChild['item']['poster'] ?? '' }}" alt="">
+                    <a href="{{ route('history.show', $itemChild['item_id']) }}">{{ $itemChild['item']['title'] ?? '' }} - {{ number_format($itemChild['price'] ?? 0, 0,'.',',') ?? '' }} * {{ $itemChild['qty'] ?? '' }}</a>
+                  </div>
                 @endforeach
               </td>
               <td>{{ number_format($item['grand_total'] ?? 0, 0,'.',',') }}</td>
