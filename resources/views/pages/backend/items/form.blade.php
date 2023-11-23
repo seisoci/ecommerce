@@ -82,6 +82,10 @@
                     <input type="number" name="qty" class="form-control" value="{{ $data['qty'] ?? '' }}">
                   </div>
                   <div class="form-group">
+                    <label>Berat (gram)</label>
+                    <input type="number" name="gram" class="form-control" value="{{ $data['gram'] ?? '' }}">
+                  </div>
+                  <div class="form-group">
                     <label>Harga</label>
                     <input type="number" name="price" class="form-control" value="{{ $data['price'] ?? '' }}">
                   </div>

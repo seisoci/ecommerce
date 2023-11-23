@@ -19,6 +19,7 @@
                 <thead>
                 <tr>
                   <th>Nama Pembeli</th>
+                  <th>Resi</th>
                   <th>Grand Total</th>
                   <th>Status</th>
                   <th>Tgl Dibuat</th>
@@ -60,6 +61,10 @@
                 <option value="cancel">Gagal</option>
               </select>
             </div>
+            <div class="form-group">
+              <label>Resi</label>
+              <input type="text" name="resi" class="form-control">
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
@@ -79,11 +84,18 @@
           serverSide: true,
           processing: true,
           ajax: {url: `{{ route('backend.history.index') }}`},
-          order: [[3, 'desc']],
+          order: [[4, 'desc']],
           lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
           pageLength: 10,
           columns: [
             {data: 'user.name', name: 'user.name'},
+            {
+              data: 'resi',
+              name: 'resi',
+              {{--render: function (data, type, full, meta) {--}}
+              {{--  return `<a target="_blank" href="{{ route('resi.index') }}/${data}">${data ?? ''}</a>`;--}}
+              {{--},--}}
+            },
             {
               data: 'grand_total',
               name: 'grand_total',
@@ -152,11 +164,14 @@
 
         modalEdit.addEventListener('show.bs.modal', function (event) {
           let status = event.relatedTarget.getAttribute('data-bs-status');
+          let resi = event.relatedTarget.getAttribute('data-bs-resi');
           $('select[name=status]').val(status);
+          $('input[name=resi]').val(resi);
           this.querySelector('#formUpdate').setAttribute('action', '{{ route("backend.history.index") }}/' + event.relatedTarget.getAttribute('data-bs-id'));
         });
         modalEdit.addEventListener('hidden.bs.modal', function (event) {
           $('select[name=status]').val('');
+          $('select[name=resi]').val('');
           this.querySelector('#formUpdate').setAttribute('href', '');
         });
 

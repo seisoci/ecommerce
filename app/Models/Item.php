@@ -19,6 +19,7 @@ class Item extends Model
     'poster',
     'qty',
     'price',
+    'gram',
     'description',
     'published',
     'created_at',

@@ -44,12 +44,18 @@ class CartController extends Controller
   {
     $purchaseOrder = PurchaseOrder::create([
       'user_id' => auth()->id(),
+      'origin_province' => $request['origin_province'],
+      'origin_city' => $request['origin_city'],
+      'destination_province' => $request['destination_province'],
+      'destination_city' => $request['destination_city'],
+      'total_ongkir' => $request['total_ongkir'],
+      'total_gram' => $request['weight'],
     ]);
     DB::beginTransaction();
     try {
-      $grandTotal = 0;
+      $totalPembelian = 0;
       foreach ($request['items'] ?? [] as $item):
-        $grandTotal += $item['total_price'];
+        $totalPembelian += $item['total_price'];
         PurchaseOrderItem::create([
           'purchase_order_id' => $purchaseOrder['id'],
           'item_id' => $item['item_id'],
@@ -64,7 +70,9 @@ class CartController extends Controller
         ]);
       endforeach;
 
+      $grandTotal = $totalPembelian + $request['total_ongkir'];
       $purchaseOrder->update([
+        'total_pembelian' => $totalPembelian,
         'grand_total' => $grandTotal
       ]);
       Cart::where('user_id', auth()->id())->delete();

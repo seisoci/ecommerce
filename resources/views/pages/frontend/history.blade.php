@@ -9,6 +9,7 @@
             <tr class="text-center">
               <th>No.</th>
               <th>Barang</th>
+              <th>Resi</th>
               <th>Grand Total</th>
               <th>Status</th>
             </tr>
@@ -25,6 +26,7 @@
                   </div>
                 @endforeach
               </td>
+              <td>{{ $item['resi'] }}</td>
               <td>{{ number_format($item['grand_total'] ?? 0, 0,'.',',') }}</td>
               <td>{{ ucwords($item['status']) }}</td>
             </tr>

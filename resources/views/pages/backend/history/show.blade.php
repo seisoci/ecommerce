@@ -112,6 +112,14 @@
                     @endforeach
                     </tbody>
                     <thead>
+                    <tr>
+                      <td colspan="5" class="text-end">Total Ongkir</td>
+                      <td class="text-end">{{ number_format($data['total_ongkir'] ?? 0,0,'.',',') }}</td>
+                    </tr>
+                    <tr>
+                      <td colspan="5" class="text-end">Total Pembelian</td>
+                      <td class="text-end">{{ number_format($data['total_pembelian'] ?? 0,0,'.',',') }}</td>
+                    </tr>
                       <tr>
                         <td colspan="5" class="text-end">Grand Total</td>
                         <td class="text-end">{{ number_format($data['grand_total'] ?? 0,0,'.',',') }}</td>

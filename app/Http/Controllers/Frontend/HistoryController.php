@@ -32,7 +32,7 @@ class HistoryController extends Controller
       'categoryMenu' => $categoryMenu,
       'cart' => $cart
     ];
-//dd($purchaseOrder->toArray());
+
     return view('pages.frontend.history', compact('config', 'data'));
   }
 

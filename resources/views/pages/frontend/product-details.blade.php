@@ -199,7 +199,6 @@
         productThumbs.controller.control = productSlider;
       }
 
-
       $('[data-raty]').raty({
         readOnly: true,
         numberMax: 5,

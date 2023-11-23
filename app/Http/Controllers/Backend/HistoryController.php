@@ -33,7 +33,7 @@ class HistoryController extends Controller
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="' . route('backend.history.show', $row->id) . '">Detail</a></li>
                                  <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalEdit" data-bs-id="' . $row->id . '"
-                                        data-bs-status="' . $row->status . '" class="dropdown-item">Ubah</a></li>
+                                        data-bs-status="' . $row->status . '" data-bs-resi="' . $row->resi . '"  class="dropdown-item">Ubah Status & Input Resi</a></li>
                             </ul>
                           </div>';
           return $actionBtn;

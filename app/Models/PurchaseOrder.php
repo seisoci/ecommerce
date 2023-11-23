@@ -11,8 +11,15 @@ class PurchaseOrder extends Model
 
   protected $fillable = [
     'user_id',
+    'total_pembelian',
+    'total_ongkir',
+    'total_gram',
     'grand_total',
     'status',
+    'origin_province',
+    'origin_city',
+    'destination_province',
+    'destination_city',
   ];
 
 

@@ -43,6 +43,9 @@ Route::prefix('backend')->middleware(['auth:web'])->group(function () {
   Route::post('update-change-password', [Backend\UserController::class, 'updatechangepassword'])->name('update-change-password');
 
   /* Theme Route */
+  Route::resource('resi', Backend\ResiController::class);
+
+  /* Theme Route */
   Route::resource('themes', Backend\ThemeController::class);
 
   /* Category Product Route */
@@ -81,6 +84,10 @@ Route::get('cart/{id}/delete-item', [Frontend\CartController::class, 'deleteItem
 Route::post('cart/review', [Frontend\CartController::class, 'review'])->name('review');
 Route::get('cart/review', [Frontend\CartController::class, 'review'])->name('review.data');
 
+Route::get('test', [Frontend\CheckOngkirController::class, 'test'])->name('provinces');
+Route::get('provinces', [Frontend\CheckOngkirController::class, 'province'])->name('provinces');
+Route::get('cities', [Frontend\CheckOngkirController::class, 'city'])->name('cities');
+Route::post('check-ongkir', [Frontend\CheckOngkirController::class, 'checkOngkir'])->name('check-ongkir');
 
 //MenuStyle Page Routs
 Route::get('horizontal', [HomeController::class, 'horizontal'])->name('menu-style.horizontal');
